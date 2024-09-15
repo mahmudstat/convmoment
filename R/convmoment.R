@@ -16,8 +16,8 @@
 #' @returns A vector of converted moments
 
 #' @examples
-x <- c(1, 16, -40)
-conv_moment_all(x, 2, 0)
+#' x <- c(1, 16, -40)
+#' conv_moment_all(x, 2, 0)
 
 #' @export
 conv_moment_all <- function(x,a,k){
@@ -28,4 +28,3 @@ conv_moment_all <- function(x,a,k){
   }
   return(mom)
 }
-
