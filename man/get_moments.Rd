@@ -4,7 +4,7 @@
 \alias{get_moments}
 \title{Moment Estimation}
 \usage{
-get_moments(x, a, r, decimal = 3)
+get_moments(x, a, r, na_rm = FALSE, decimal = 3)
 }
 \arguments{
 \item{x}{A numeric vector with values of a variable}
@@ -12,6 +12,8 @@ get_moments(x, a, r, decimal = 3)
 \item{a}{The origin}
 
 \item{r}{The highest order}
+
+\item{na_rm}{whether to remove NA; The default value is FALSE}
 
 \item{decimal}{The no. of digits after decimal}
 }
