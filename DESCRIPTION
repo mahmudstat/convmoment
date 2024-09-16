@@ -1,7 +1,7 @@
 Package: convmoment
 Type: Package
-Title: Converts moments of a distribution to and from central and raw ones.
-Version: 0.1.1.9000
+Title: Converts moments of a distribution to and from central and raw ones
+Version: 0.2.1.9000
 Authors@R: person(given = c("Abdullah", "Al"),
                     family = "Mahmud",
                     role = c("aut", "cre"),
