@@ -24,6 +24,12 @@ pak::pak("mahmudstat/convmoment")
 
 This is a basic example which shows you how to solve a common problem:
 
+The moments of a variable around 2 are 1, 16, and -40. What would be the
+moments around 0?
+
+Thus, in the function, the old origin, `a = 2` and the new origin,
+`k = 0`.
+
 ``` r
 library(convmoment)
 x <- c(1, 16, -40)
