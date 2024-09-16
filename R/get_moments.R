@@ -3,15 +3,16 @@
 #' This function estimates raw moments around a certain origin or central 
 #' moments up to a certain degree (r)
 #'
-#' To find the raw moments use the origin `a`, while, for central moments,
-#' use `mean(x)`. 
+#' To find the raw moments use the arbitrary origin `a`, while, for 
+#' central moments, use `a = mean(x)`. 
 #'
 #' @param x A numeric vector with values of a variable
 #' @param a The origin
 #' @param r The highest order
 #' @param decimal The no. of digits after decimal
 
-#' @returns A vector of raw or central moments
+#' @returns A data frame of `r` rows and 2 columns; the columns represent
+#' order of moment and the moment. 
 
 #' @examples
 #' x <- sample(10, 5)

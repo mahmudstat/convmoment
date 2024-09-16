@@ -16,15 +16,16 @@ get_moments(x, a, r, decimal = 3)
 \item{decimal}{The no. of digits after decimal}
 }
 \value{
-A vector of raw or central moments
+A data frame of \code{r} rows and 2 columns; the columns represent
+order of moment and the moment.
 }
 \description{
 This function estimates raw moments around a certain origin or central
 moments up to a certain degree (r)
 }
 \details{
-To find the raw moments use the origin \code{a}, while, for central moments,
-use \code{mean(x)}.
+To find the raw moments use the arbitrary origin \code{a}, while, for
+central moments, use \code{a = mean(x)}.
 }
 \examples{
 x <- sample(10, 5)

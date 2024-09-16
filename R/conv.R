@@ -8,3 +8,10 @@ conv_moment <- function(x, a, k, r){
   return(sum(muk))
 }
 
+
+# Get moments
+x <- sample(10, 5)
+a <- 2
+r <- 5
+mu <- c()
+for (i in 1:r) mu[i] <- sum((x-a)^i)/length(x); mu
