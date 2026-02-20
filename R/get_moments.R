@@ -17,7 +17,7 @@
 
 #' @examples
 #' x <- sample(10, 5)
-#' get_moments(x, 2, 3) # test r > 0
+#' get_moments(x, 2, 3)
 
 #' @export
 get_moments <- function(x, a, r, na_rm = FALSE, decimal = 3){
