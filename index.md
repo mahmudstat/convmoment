@@ -10,6 +10,7 @@ You can install the development version of convmoment from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("mahmudstat/convmoment")
 ```
@@ -25,6 +26,7 @@ Thus, in the function, the old origin, `a = 2` and the new origin,
 `k = 0`.
 
 ``` r
+
 library(convmoment)
 x <- c(1, 16, -40)
 conv_moment_all(x, 2, 0)
