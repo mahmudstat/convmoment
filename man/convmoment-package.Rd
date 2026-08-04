@@ -4,19 +4,25 @@
 \name{convmoment-package}
 \alias{convmoment}
 \alias{convmoment-package}
-\title{convmoment: Converts moments of a distribution to and from central and raw ones}
+\title{convmoment: Generalized Binomial Moment Transformations Across Arbitrary Origins}
 \description{
-The package converts to and from raw moments to and from other raw moments or central moments.
+Implements the generalized binomial framework for transforming statistical moments of any order across arbitrary origins (Mahmud, 2025). Provides a unified method for raw-to-raw, raw-to-central, and central-to-raw moment conversions using a single origin-shift parameter b = a - k and the symbolic binomial operator (a + b)^r with a^j -> mu'_j(a). Includes functions for moment transformation, direct moment computation from data, and validation against theoretical distributions (Binomial, Normal).
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{http://www.thinkermahmud.com/convmoment/}
+  \item Report bugs at \url{https://github.com/yourusername/convmoment/issues}
 }
 
 }
 \author{
 \strong{Maintainer}: Abdullah Al Mahmud \email{almahmud.sbi@gmail.com} (\href{https://orcid.org/0000-0003-2814-8798}{ORCID})
+
+Authors:
+\itemize{
+  \item Abdullah Al Mahmud \email{almahmud.sbi@gmail.com} (\href{https://orcid.org/0000-0003-2814-8798}{ORCID})
+}
 
 }
 \keyword{internal}

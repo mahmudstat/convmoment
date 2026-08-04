@@ -2,32 +2,28 @@
 % Please edit documentation in R/convmoment.R
 \name{conv_moment_all}
 \alias{conv_moment_all}
-\title{Moment Conversion}
+\title{Convert All Moments Up to Order K Across Origins}
 \usage{
 conv_moment_all(x, a, k)
 }
 \arguments{
-\item{x}{A numeric vector with moments about \code{a}, the existing origin.}
+\item{x}{Numeric vector of raw moments about origin \code{a}
+(orders 1, 2, ..., K).}
 
-\item{a}{The old origin}
+\item{a}{Initial origin (numeric).}
 
-\item{k}{The new origin. To convert to central moments, use \eqn{\mu_1'+a}}
+\item{k}{Target origin (numeric).}
 }
 \value{
-A vector of converted moments
+Numeric vector of moments about \code{k} (orders 1..K).
 }
 \description{
-This function converts moments of a distribution to and from central and
-raw ones. Raw moments about a origin can be converted to raw moments with
-another origin.
-}
-\details{
-If you want to convert to central moment, use the same function. Just
-remember to use the arithmetic mean as the new origin.
-
-Mean = First raw moment about \code{a} + \code{a}; where \code{a} is the old origin.
+Transforms a vector of raw moments about origin \code{a} to moments about
+target origin \code{k} using the generalized binomial transformation
+(Theorem 1, Mahmud 2025).
 }
 \examples{
-x <- c(1, 16, -40)
-conv_moment_all(x, 2, 0)
+# Raw moments about a=2: mu'_1=-1, mu'_2=7, mu'_3=39
+x <- c(-1, 7, 39)
+conv_moment_all(x, a = 2, k = 5)  # -> c(-4, 22, -78)
 }

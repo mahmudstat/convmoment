@@ -1,30 +1,57 @@
-#' Moment Conversion
+#' Convert All Moments Up to Order K Across Origins
 #'
-#' This function converts moments of a distribution to and from central and 
-#' raw ones. Raw moments about a origin can be converted to raw moments with
-#' another origin. 
+#' Transforms a vector of raw moments about origin \code{a} to moments about
+#' target origin \code{k} using the generalized binomial transformation
+#' (Theorem 1, Mahmud 2025).
 #'
-#' If you want to convert to central moment, use the same function. Just 
-#' remember to use the arithmetic mean as the new origin. 
-#' 
-#' Mean = First raw moment about `a` + `a`; where `a` is the old origin.
-#'
-#' @param x A numeric vector with moments about `a`, the existing origin. 
-#' @param a The old origin
-#' @param k The new origin. To convert to central moments, use \eqn{\mu_1'+a}
-
-#' @returns A vector of converted moments
-
-#' @examples
-#' x <- c(1, 16, -40)
-#' conv_moment_all(x, 2, 0)
-
+#' @param x Numeric vector of raw moments about origin \code{a}
+#'   (orders 1, 2, ..., K).
+#' @param a Initial origin (numeric).
+#' @param k Target origin (numeric).
+#' @returns Numeric vector of moments about \code{k} (orders 1..K).
 #' @export
-conv_moment_all <- function(x,a,k){
-  r <- 1:length(x)
-  mom <- c()
-  for (i in r){
-    mom[i] <- conv_moment(x = x, a = a, k = k, r = i)
-  }
-  return(mom)
+#' @examples
+#' # Raw moments about a=2: mu'_1=-1, mu'_2=7, mu'_3=39
+#' x <- c(-1, 7, 39)
+#' conv_moment_all(x, a = 2, k = 5)  # -> c(-4, 22, -78)
+conv_moment_all <- function(x, a, k) {
+  K <- length(x)
+  vapply(seq_len(K), function(r) conv_moment(x, a, k, r), numeric(1))
+}
+
+#' Convert Raw Moments to Central Moments
+#'
+#' Convenience wrapper converting raw moments about origin \code{a}
+#' to central moments (about the mean).
+#'
+#' @param raw_moments Numeric vector of raw moments about \code{origin}
+#'   (orders 1..K).
+#' @param origin Initial origin (default 0).
+#' @returns Numeric vector of central moments (orders 1..K).
+#' @export
+#' @examples
+#' x <- c(20, 25, 29, 32, 40)
+#' raw_direct <- sapply(1:5, function(r) mean(x^r))
+#' raw2central(raw_direct, origin = 0)
+raw2central <- function(raw_moments, origin = 0) {
+  mean_val <- raw_moments[1] + origin
+  conv_moment_all(raw_moments, a = origin, k = mean_val)
+}
+
+#' Convert Central Moments to Raw Moments About Zero
+#'
+#' Convenience wrapper converting central moments (about the mean)
+#' to raw moments about origin 0.
+#'
+#' @param central_moments Numeric vector of central moments (orders 1..K).
+#' @param mean_val Population/sample mean (numeric).
+#' @returns Numeric vector of raw moments about 0 (orders 1..K).
+#' @export
+#' @examples
+#' x <- c(20, 25, 29, 32, 40)
+#' mean_x <- mean(x)
+#' central_direct <- sapply(1:5, function(r) mean((x - mean_x)^r))
+#' central2raw(central_direct, mean_val = mean_x)
+central2raw <- function(central_moments, mean_val) {
+  conv_moment_all(central_moments, a = mean_val, k = 0)
 }
