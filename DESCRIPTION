@@ -17,7 +17,7 @@ Description: Implements the generalized binomial framework for transforming
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/mahmudstat/convmoment
+URL: https://mahmudstat.github.io/convmoment, https://github.com/mahmudstat/convmoment
 BugReports: https://github.com/mahmudstat/convmoment/issues
 Suggests:
     testthat (>= 3.0.0),

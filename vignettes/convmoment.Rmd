@@ -257,19 +257,22 @@ For computational implementations, the transformation can be expressed as a matr
 
 ```{r matrix-form}
 # Transformation matrix C_b for orders 0..K
-K <- 5
-b <- 2 - 5  # = -3
+K <- 3
+b <- 2 - 5  # = -3 (a = 2, k = 5)
 C_b <- outer(0:K, 0:K, function(r, j) ifelse(j <= r, choose(r, j) * b^(r-j), 0))
 C_b
 
 # Verify: mu'(k) = C_b %*% mu'(a)
-mu_a <- c(1, -1, 7, 39, NA, NA)  # mu_0=1, mu_1=-1, mu_2=7, mu_3=39
-# Use conv_moment_all to compute higher orders
+mu_a <- c(1, -1, 7, 39)  # mu_0=1, mu_1=-1, mu_2=7, mu_3=39
+mu_k_matrix <- as.vector(C_b %*% mu_a)[-1]  # remove mu_0
+
 moments_a2 <- c(-1, 7, 39)
 moments_k5 <- conv_moment_all(moments_a2, a = 2, k = 5)
-mu_a[5:6] <- moments_k5[4:5]
-C_b %*% mu_a
+
+# Compare matrix multiplication result with conv_moment_all()
+all.equal(mu_k_matrix, moments_k5)
 ```
+
 
 ## References
 
