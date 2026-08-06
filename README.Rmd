@@ -16,34 +16,128 @@ knitr::opts_chunk$set(
 # convmoment
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml)
+[![CRAN status](https://www.r-pkg.org/badges/version/convmoment)](https://CRAN.R-project.org/package=convmoment)
+[![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://www.thinkermahmud.com/convmoment/)
 <!-- badges: end -->
 
-The goal of convmoment is to convert moments of a distribution to and from central and 
-raw ones. Raw moments about a origin can be converted to raw moments with
-another origin. 
+**convmoment** implements the generalized binomial framework for transforming statistical moments of any order across arbitrary origins (Mahmud, 2025). It provides a unified, exact, and computationally efficient $O(r^2)$ method for:
+
+* **Raw-to-Raw** transformations across arbitrary origins $a \to k$
+* **Raw-to-Central** transformations (moments about origin $a$ to central moments about the mean)
+* **Central-to-Raw** transformations (central moments back to raw moments about $0$)
+* **Direct Moment Computation** from sample data up to degree $r$
+
+The underlying mathematical identity uses the symbolic binomial operator:
+
+$$ \mu'_r(k) \equiv (a + b)^r = \sum_{j=0}^r \binom{r}{j} \mu'_j(a) \, b^{r-j} $$
+
+where $b = a - k$ is the origin-shift parameter and $a^j \mapsto \mu'_j(a)$.
+
+---
 
 ## Installation
 
-You can install the development version of convmoment from [GitHub](https://github.com/) with:
+You can install the released version of **convmoment** from [CRAN](https://CRAN.R-project.org) (once accepted) with:
+
+``` r
+install.packages("convmoment")
+```
+
+Or install the development version from [GitHub](https://github.com/mahmudstat/convmoment) using `pak`:
 
 ``` r
 # install.packages("pak")
 pak::pak("mahmudstat/convmoment")
 ```
 
-## Example
+---
 
-This is a basic example which shows you how to solve a common problem:
+## Key Functions
 
-The moments of a variable around 2 are 1, 16, and -40. What would be the
-moments around 0? 
+| Function | Description |
+| :--- | :--- |
+| `conv_moment_all(x, a, k)` | Convert a vector of raw moments (orders $1 \dots K$) from origin $a$ to target origin $k$ |
+| `raw2central(raw_moments, origin)` | Convert raw moments about `origin` to central moments (about the mean) |
+| `central2raw(central_moments, mean_val)` | Convert central moments to raw moments about origin $0$ |
+| `get_moments(x, a, r, na_rm, decimal)` | Compute raw or central moments directly from sample data $x$ up to degree $r$ |
 
-Thus, in the function, the old origin, `a = 2` and the new origin, `k = 0`. 
+---
 
+## Examples
 
-```{r example}
+### 1. Raw-to-Raw Transformation Across Origins
+
+Suppose the raw moments of a variable about origin $a = 2$ are $\mu'_1(2) = 1$, $\mu'_2(2) = 16$, and $\mu'_3(2) = -40$. What are the raw moments about origin $k = 0$?
+
+```{r raw-to-raw}
 library(convmoment)
+
+# Raw moments about origin a = 2
 x <- c(1, 16, -40)
-conv_moment_all(x, 2, 0)
+
+# Convert to origin k = 0
+conv_moment_all(x, a = 2, k = 0)
 ```
 
+---
+
+### 2. Raw-to-Central and Central-to-Raw Conversions
+
+Convert raw moments about 0 to central moments (about the mean) and perform a round-trip check:
+
+```{r raw-central}
+set.seed(42)
+data <- rnorm(200, mean = 10, sd = 3)
+
+# Compute raw moments about 0 (orders 1..5)
+raw_m <- sapply(1:5, function(r) mean(data^r))
+
+# Convert raw moments to central moments
+central_m <- raw2central(raw_m, origin = 0)
+central_m
+
+# Round-trip back to raw moments
+raw_reconstructed <- central2raw(central_m, mean_val = mean(data))
+all.equal(raw_m, raw_reconstructed)
+```
+
+---
+
+### 3. Compute Moments Directly from Sample Data
+
+Calculate raw moments around origin $a = 2$ up to 4th order:
+
+```{r get-moments}
+set.seed(123)
+sample_data <- rnorm(100, mean = 5, sd = 2)
+
+# Compute moments about origin a = 2 up to order r = 4
+get_moments(sample_data, a = 2, r = 4, decimal = 4)
+```
+
+---
+
+## Documentation & Vignette
+
+For full theoretical details, high-order examples, distribution benchmarks (Binomial, Normal), and matrix formulations, visit the online documentation website:
+
+👉 **[https://www.thinkermahmud.com/convmoment/](https://www.thinkermahmud.com/convmoment/)**
+
+---
+
+## Citation
+
+If you use `convmoment` in your work, please cite:
+
+```text
+Mahmud, A. A. (2025). A Generalized Binomial Framework for Moment Transformations 
+Across Arbitrary Origins. R package version 0.2.3.
+```
+
+---
+
+## License
+
+This package is licensed under the [MIT License](LICENSE.md).
