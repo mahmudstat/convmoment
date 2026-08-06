@@ -6,3 +6,5 @@ docs
 convmoment.Rcheck/
 *.tar.gz
 *.tgz
+/doc/
+/Meta/

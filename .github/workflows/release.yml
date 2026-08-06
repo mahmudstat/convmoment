@@ -1,0 +1,45 @@
+# Workflow to create GitHub release from NEWS.md
+# Place in .github/workflows/release.yml
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+name: Create Release
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract release notes
+        id: notes
+        run: |
+          # Get version from tag
+          VERSION=${GITHUB_REF#refs/tags/v}
+          # Extract notes for this version from NEWS.md
+          awk -v ver="$VERSION" '
+            /^# convmoment / {
+              if (found) exit
+              if ($0 ~ ver) found=1
+            }
+            found { print }
+          ' NEWS.md > release_notes.md
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          cat release_notes.md >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body_path: release_notes.md
+          generate_release_notes: false

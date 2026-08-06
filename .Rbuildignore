@@ -9,3 +9,5 @@
 ^convmoment\.Rcheck$
 ^.*\.tar\.gz$
 ^\.claude$
+^doc$
+^Meta$
