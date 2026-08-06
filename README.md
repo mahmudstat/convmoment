@@ -6,8 +6,6 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/convmoment)](https://CRAN.R-project.org/package=convmoment)
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://www.thinkermahmud.com/convmoment/)
 <!-- badges: end -->
 
