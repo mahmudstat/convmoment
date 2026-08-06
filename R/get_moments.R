@@ -11,22 +11,30 @@
 #' @param r The highest order
 #' @param na_rm whether to remove NA; The default value is FALSE
 #' @param decimal The no. of digits after decimal
-
 #' @returns A data frame of `r` rows and 2 columns; the columns represent
-#' order of moment and the moment. 
-
+#'   order of moment and the moment. 
 #' @examples
 #' x <- sample(10, 5)
 #' get_moments(x, 2, 3)
-
 #' @export
-get_moments <- function(x, a, r, na_rm = FALSE, decimal = 3){
-  options(scipen=999)
-  mu <- c()
-  for (i in 1:r) {
-    mu[i] <- sum((x-a)^i, na.rm = na_rm)/length(x)
-    }
-  df <- data.frame(Order = 1:r,
-                   Moment = round(mu, decimal))
+get_moments <- function(x, a, r, na_rm = FALSE, decimal = 3) {
+  old_opts <- options(scipen = 999)
+  on.exit(options(old_opts), add = TRUE)
+  
+  if (na_rm) {
+    x <- x[!is.na(x)]
+  }
+  
+  n_obs <- length(x)
+  mu <- numeric(r)
+  for (i in seq_len(r)) {
+    mu[i] <- sum((x - a)^i) / n_obs
+  }
+  
+  df <- data.frame(
+    Order = seq_len(r),
+    Moment = round(mu, decimal)
+  )
   return(df)
 }
+

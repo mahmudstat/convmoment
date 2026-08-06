@@ -8,7 +8,7 @@ Authors@R: person(given = c("Abdullah", "Al"),
                     comment = c(ORCID = "0000-0003-2814-8798"),
                     email = "almahmud.sbi@gmail.com")
 Description: Implements the generalized binomial framework for transforming
-    statistical moments of any order across arbitrary origins (Mahud, 2025).
+    statistical moments of any order across arbitrary origins.
     Provides a unified method for raw-to-raw, raw-to-central, and central-to-raw
     moment conversions using a single origin-shift parameter b = a - k and the
     symbolic binomial operator (a + b)^r with a^j -> mu'_j(a). Includes

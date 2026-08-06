@@ -11,3 +11,5 @@
 ^\.claude$
 ^doc$
 ^Meta$
+^cran-comments\.md$
+
