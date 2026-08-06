@@ -230,8 +230,8 @@ knitr::kable(bench, digits = 3,
 
 | Method                           | Time_sec | Speedup         |
 |:---------------------------------|---------:|:----------------|
-| Raw Data Recomputation (O(n\*r)) |    5.437 | 1.0x (baseline) |
-| Binomial Transformation (O(r^2)) |    0.014 | 388.4x faster   |
+| Raw Data Recomputation (O(n\*r)) |    9.450 | 1.0x (baseline) |
+| Binomial Transformation (O(r^2)) |    0.021 | 450x faster     |
 
 Performance: 1,000 transformations on n = 100,000 {.table}
 
@@ -324,32 +324,38 @@ as a matrix-vector product:
 ``` r
 
 # Transformation matrix C_b for orders 0..K
-K <- 3
-b <- 2 - 5  # = -3 (a = 2, k = 5)
+K <- 5
+b <- 2 - 5  # = -3
 C_b <- outer(0:K, 0:K, function(r, j) ifelse(j <= r, choose(r, j) * b^(r-j), 0))
 C_b
 ```
 
-    ##      [,1] [,2] [,3] [,4]
-    ## [1,]    1    0    0    0
-    ## [2,]   -3    1    0    0
-    ## [3,]    9   -6    1    0
-    ## [4,]  -27   27   -9    1
+    ##      [,1] [,2] [,3] [,4] [,5] [,6]
+    ## [1,]    1    0    0    0    0    0
+    ## [2,]   -3    1    0    0    0    0
+    ## [3,]    9   -6    1    0    0    0
+    ## [4,]  -27   27   -9    1    0    0
+    ## [5,]   81 -108   54  -12    1    0
+    ## [6,] -243  405 -270   90  -15    1
 
 ``` r
 
 # Verify: mu'(k) = C_b %*% mu'(a)
-mu_a <- c(1, -1, 7, 39)  # mu_0=1, mu_1=-1, mu_2=7, mu_3=39
-mu_k_matrix <- as.vector(C_b %*% mu_a)[-1]  # remove mu_0
-
+mu_a <- c(1, -1, 7, 39, NA, NA)  # mu_0=1, mu_1=-1, mu_2=7, mu_3=39
+# Use conv_moment_all to compute higher orders
 moments_a2 <- c(-1, 7, 39)
 moments_k5 <- conv_moment_all(moments_a2, a = 2, k = 5)
-
-# Compare matrix multiplication result with conv_moment_all()
-all.equal(mu_k_matrix, moments_k5)
+mu_a[5:6] <- moments_k5[4:5]
+C_b %*% mu_a
 ```
 
-    ## [1] TRUE
+    ##      [,1]
+    ## [1,]   NA
+    ## [2,]   NA
+    ## [3,]   NA
+    ## [4,]   NA
+    ## [5,]   NA
+    ## [6,]   NA
 
 ## References
 

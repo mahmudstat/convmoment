@@ -3,4 +3,4 @@
 ### All vignettes
 
 - [UNKNOWN
-  TITLE](https://www.thinkermahmud.com/convmoment/articles/convmoment.md):
+  TITLE](https://mahmudstat.github.io/convmoment/articles/convmoment.md):

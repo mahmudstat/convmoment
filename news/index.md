@@ -4,13 +4,13 @@
 
 - Initial CRAN submission version (0.2.3).
 - Implemented
-  [`conv_moment_all()`](https://www.thinkermahmud.com/convmoment/reference/conv_moment_all.md),
-  [`raw2central()`](https://www.thinkermahmud.com/convmoment/reference/raw2central.md),
-  [`central2raw()`](https://www.thinkermahmud.com/convmoment/reference/central2raw.md),
+  [`conv_moment_all()`](https://mahmudstat.github.io/convmoment/reference/conv_moment_all.md),
+  [`raw2central()`](https://mahmudstat.github.io/convmoment/reference/raw2central.md),
+  [`central2raw()`](https://mahmudstat.github.io/convmoment/reference/central2raw.md),
   and
-  [`get_moments()`](https://www.thinkermahmud.com/convmoment/reference/get_moments.md).
+  [`get_moments()`](https://mahmudstat.github.io/convmoment/reference/get_moments.md).
 - Added `na_rm` parameter to
-  [`get_moments()`](https://www.thinkermahmud.com/convmoment/reference/get_moments.md)
+  [`get_moments()`](https://mahmudstat.github.io/convmoment/reference/get_moments.md)
   with proper NA handling and safe global options management
   ([`on.exit()`](https://rdrr.io/r/base/on.exit.html)).
 - Fixed BugReports URL to point to GitHub repository.
@@ -22,7 +22,7 @@
 ## convmoment 0.2.1
 
 - Added the function
-  [`get_moments()`](https://www.thinkermahmud.com/convmoment/reference/get_moments.md),
+  [`get_moments()`](https://mahmudstat.github.io/convmoment/reference/get_moments.md),
   which calculates raw or central moments up to order `r`.
 - Added package-level documentation.
 
