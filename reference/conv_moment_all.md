@@ -1,8 +1,8 @@
-# Moment Conversion
+# Convert All Moments Up to Order K Across Origins
 
-This function converts moments of a distribution to and from central and
-raw ones. Raw moments about a origin can be converted to raw moments
-with another origin.
+Transforms a vector of raw moments about origin `a` to moments about
+target origin `k` using the generalized binomial transformation (Theorem
+1, Mahmud 2025).
 
 ## Usage
 
@@ -14,31 +14,25 @@ conv_moment_all(x, a, k)
 
 - x:
 
-  A numeric vector with moments about `a`, the existing origin.
+  Numeric vector of raw moments about origin `a` (orders 1, 2, ..., K).
 
 - a:
 
-  The old origin
+  Initial origin (numeric).
 
 - k:
 
-  The new origin. To convert to central moments, use \\\mu_1'+a\\
+  Target origin (numeric).
 
 ## Value
 
-A vector of converted moments
-
-## Details
-
-If you want to convert to central moment, use the same function. Just
-remember to use the arithmetic mean as the new origin.
-
-Mean = First raw moment about `a` + `a`; where `a` is the old origin.
+Numeric vector of moments about `k` (orders 1..K).
 
 ## Examples
 
 ``` r
-x <- c(1, 16, -40)
-conv_moment_all(x, 2, 0)
-#> [1]  3 24 76
+# Raw moments about a=2: mu'_1=-1, mu'_2=7, mu'_3=39
+x <- c(-1, 7, 39)
+conv_moment_all(x, a = 2, k = 5)  # -> c(-4, 22, -78)
+#> [1]  -4  22 -78
 ```

@@ -7,14 +7,17 @@
 
 ## Citation
 
-Mahmud AA (2026). *convmoment: Converts moments of a distribution to and
-from central and raw ones*. R package version 0.2.2.9000,
-<http://www.thinkermahmud.com/convmoment/>.
+Source:
+[`DESCRIPTION`](https://github.com/mahmudstat/convmoment/blob/main/DESCRIPTION)
+
+Mahmud AA (2026). *convmoment: Generalized Binomial Moment
+Transformations Across Arbitrary Origins*. R package version 0.2.3,
+<https://www.thinkermahmud.com/convmoment/>.
 
     @Manual{,
-      title = {convmoment: Converts moments of a distribution to and from central and raw ones},
+      title = {convmoment: Generalized Binomial Moment Transformations Across Arbitrary Origins},
       author = {Abdullah Al Mahmud},
       year = {2026},
-      note = {R package version 0.2.2.9000},
-      url = {http://www.thinkermahmud.com/convmoment/},
+      note = {R package version 0.2.3},
+      url = {https://www.thinkermahmud.com/convmoment/},
     }

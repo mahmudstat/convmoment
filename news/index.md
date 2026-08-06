@@ -1,17 +1,31 @@
 # Changelog
 
-## convmoment (development version)
+## convmoment 0.2.3
 
-- Added `na_rm` param
+- Initial CRAN submission version (0.2.3).
+- Implemented
+  [`conv_moment_all()`](https://www.thinkermahmud.com/convmoment/reference/conv_moment_all.md),
+  [`raw2central()`](https://www.thinkermahmud.com/convmoment/reference/raw2central.md),
+  [`central2raw()`](https://www.thinkermahmud.com/convmoment/reference/central2raw.md),
+  and
+  [`get_moments()`](https://www.thinkermahmud.com/convmoment/reference/get_moments.md).
+- Added `na_rm` parameter to
+  [`get_moments()`](https://www.thinkermahmud.com/convmoment/reference/get_moments.md)
+  with proper NA handling and safe global options management
+  ([`on.exit()`](https://rdrr.io/r/base/on.exit.html)).
+- Fixed BugReports URL to point to GitHub repository.
+- Added `vctrs` to Suggests for test compatibility.
+- Vignette uses only exported functions.
+- Comprehensive test suite covering raw-to-raw, raw-to-central,
+  central-to-raw transformations, round-trip validation, and edge cases.
 
-## convmoment 0.2.1.9000
+## convmoment 0.2.1
 
 - Added the function
-  [`get_moments()`](http://www.thinkermahmud.com/convmoment/reference/get_moments.md),
-  which can calculate moments up to `rth` degree.
+  [`get_moments()`](https://www.thinkermahmud.com/convmoment/reference/get_moments.md),
+  which calculates raw or central moments up to order `r`.
 - Added package-level documentation.
 
-## convmoment 0.0.1.9000
+## convmoment 0.0.1
 
-- Added the working function
-  [`conv_moment_all()`](http://www.thinkermahmud.com/convmoment/reference/conv_moment_all.md)
+- Initial development release with core moment conversion functions.

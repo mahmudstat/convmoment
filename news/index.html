@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">convmoment</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,10 +21,12 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/convmoment.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mahmudstat/convmoment/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -34,22 +36,27 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-
+      <small>Source: <a href="https://github.com/mahmudstat/convmoment/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="convmoment-development-version">convmoment (development version)<a class="anchor" aria-label="anchor" href="#convmoment-development-version"></a></h2>
-<ul><li>Added <code>na_rm</code> param</li>
+<h2 class="pkg-version" data-toc-text="0.2.3" id="convmoment-023">convmoment 0.2.3<a class="anchor" aria-label="anchor" href="#convmoment-023"></a></h2>
+<ul><li>Initial CRAN submission version (0.2.3).</li>
+<li>Implemented <code><a href="../reference/conv_moment_all.html">conv_moment_all()</a></code>, <code><a href="../reference/raw2central.html">raw2central()</a></code>, <code><a href="../reference/central2raw.html">central2raw()</a></code>, and <code><a href="../reference/get_moments.html">get_moments()</a></code>.</li>
+<li>Added <code>na_rm</code> parameter to <code><a href="../reference/get_moments.html">get_moments()</a></code> with proper NA handling and safe global options management (<code><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit()</a></code>).</li>
+<li>Fixed BugReports URL to point to GitHub repository.</li>
+<li>Added <code>vctrs</code> to Suggests for test compatibility.</li>
+<li>Vignette uses only exported functions.</li>
+<li>Comprehensive test suite covering raw-to-raw, raw-to-central, central-to-raw transformations, round-trip validation, and edge cases.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.1.9000" id="convmoment-0219000">convmoment 0.2.1.9000<a class="anchor" aria-label="anchor" href="#convmoment-0219000"></a></h2>
-<ul><li>Added the function <code><a href="../reference/get_moments.html">get_moments()</a></code>, which can calculate moments up to <code>rth</code> degree.</li>
+<h2 class="pkg-version" data-toc-text="0.2.1" id="convmoment-021">convmoment 0.2.1<a class="anchor" aria-label="anchor" href="#convmoment-021"></a></h2>
+<ul><li>Added the function <code><a href="../reference/get_moments.html">get_moments()</a></code>, which calculates raw or central moments up to order <code>r</code>.</li>
 <li>Added package-level documentation.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.1.9000" id="convmoment-0019000">convmoment 0.0.1.9000<a class="anchor" aria-label="anchor" href="#convmoment-0019000"></a></h2>
-<ul><li>Added the working function <code><a href="../reference/conv_moment_all.html">conv_moment_all()</a></code>
-</li>
+<h2 class="pkg-version" data-toc-text="0.0.1" id="convmoment-001">convmoment 0.0.1<a class="anchor" aria-label="anchor" href="#convmoment-001"></a></h2>
+<ul><li>Initial development release with core moment conversion functions.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

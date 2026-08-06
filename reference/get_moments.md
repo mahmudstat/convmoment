@@ -45,7 +45,7 @@ moments, use `a = mean(x)`.
 
 ``` r
 x <- sample(10, 5)
-get_moments(x, 2, 3) # test r > 0
+get_moments(x, 2, 3)
 #>   Order Moment
 #> 1     1    4.4
 #> 2     2   23.6

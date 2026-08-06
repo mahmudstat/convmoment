@@ -1,13 +1,18 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>http://www.thinkermahmud.com/convmoment/404.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/LICENSE-text.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/LICENSE.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/authors.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/index.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/news/index.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/reference/conv_moment_all.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/reference/convmoment-package.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/reference/get_moments.html</loc></url>
-<url><loc>http://www.thinkermahmud.com/convmoment/reference/index.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/404.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/LICENSE-text.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/LICENSE.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/articles/convmoment.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/articles/index.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/authors.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/index.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/news/index.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/central2raw.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/conv_moment.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/conv_moment_all.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/convmoment-package.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/get_moments.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/index.html</loc></url>
+<url><loc>https://www.thinkermahmud.com/convmoment/reference/raw2central.html</loc></url>
 </urlset>
 
