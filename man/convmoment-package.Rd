@@ -11,6 +11,7 @@ Implements the generalized binomial framework for transforming statistical momen
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://www.thinkermahmud.com/convmoment/}
   \item \url{https://github.com/mahmudstat/convmoment}
   \item Report bugs at \url{https://github.com/mahmudstat/convmoment/issues}
 }

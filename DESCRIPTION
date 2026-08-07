@@ -21,9 +21,6 @@ URL: https://www.thinkermahmud.com/convmoment/, https://github.com/mahmudstat/co
 BugReports: https://github.com/mahmudstat/convmoment/issues
 Suggests:
     testthat (>= 3.0.0),
-    knitr,
-    rmarkdown,
     vctrs
-VignetteBuilder: knitr
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0

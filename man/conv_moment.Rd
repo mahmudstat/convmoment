@@ -2,7 +2,7 @@
 % Please edit documentation in R/conv.R
 \name{conv_moment}
 \alias{conv_moment}
-\title{Convert a Single Moment Across Origins (Internal)}
+\title{Convert a Single Moment Across Origins}
 \usage{
 conv_moment(x, a, k, r)
 }
@@ -22,4 +22,7 @@ Numeric scalar: the r-th moment about origin \code{k}.
 Computes the r-th moment about target origin \code{k} from raw moments
 about origin \code{a} using the generalized binomial transformation.
 }
-\keyword{internal}
+\examples{
+x <- c(-1, 7, 39)
+conv_moment(x, a = 2, k = 5, r = 2)  # returns 22
+}
