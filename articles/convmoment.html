@@ -61,7 +61,7 @@
                         <h4 data-toc-skip class="author">Abdullah Al
 Mahmud</h4>
             
-            <h4 data-toc-skip class="date">2026-08-06</h4>
+            <h4 data-toc-skip class="date">2026-08-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mahmudstat/convmoment/blob/main/vignettes/convmoment.Rmd" class="external-link"><code>vignettes/convmoment.Rmd</code></a></small>
       <div class="d-none name"><code>convmoment.Rmd</code></div>
@@ -98,7 +98,7 @@ using Pascal’s triangle coefficients.</p>
 <span></span>
 <span><span class="co"># From local source</span></span>
 <span><span class="co"># remotes::install_local("path/to/convmoment")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mahmudstat/convmoment" class="external-link">convmoment</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.thinkermahmud.com/convmoment/" class="external-link">convmoment</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="core-functions">Core Functions<a class="anchor" aria-label="anchor" href="#core-functions"></a>
@@ -448,13 +448,13 @@ r)\)</span>):</p>
 <tbody>
 <tr class="odd">
 <td align="left">Raw Data Recomputation (O(n*r))</td>
-<td align="right">9.450</td>
+<td align="right">9.371</td>
 <td align="left">1.0x (baseline)</td>
 </tr>
 <tr class="even">
 <td align="left">Binomial Transformation (O(r^2))</td>
-<td align="right">0.021</td>
-<td align="left">450x faster</td>
+<td align="right">0.022</td>
+<td align="left">426x faster</td>
 </tr>
 </tbody>
 </table>
@@ -600,32 +600,26 @@ distributions:</p>
 expressed as a matrix-vector product:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Transformation matrix C_b for orders 0..K</span></span>
-<span><span class="va">K</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">-</span> <span class="fl">5</span>  <span class="co"># = -3</span></span>
+<span><span class="va">K</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">-</span> <span class="fl">5</span>  <span class="co"># = -3 (a = 2, k = 5)</span></span>
 <span><span class="va">C_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="va">K</span>, <span class="fl">0</span><span class="op">:</span><span class="va">K</span>, <span class="kw">function</span><span class="op">(</span><span class="va">r</span>, <span class="va">j</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">j</span> <span class="op">&lt;=</span> <span class="va">r</span>, <span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">choose</a></span><span class="op">(</span><span class="va">r</span>, <span class="va">j</span><span class="op">)</span> <span class="op">*</span> <span class="va">b</span><span class="op">^</span><span class="op">(</span><span class="va">r</span><span class="op">-</span><span class="va">j</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">C_b</span></span></code></pre></div>
-<pre><code><span><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></span>
-<span><span class="co">## [1,]    1    0    0    0    0    0</span></span>
-<span><span class="co">## [2,]   -3    1    0    0    0    0</span></span>
-<span><span class="co">## [3,]    9   -6    1    0    0    0</span></span>
-<span><span class="co">## [4,]  -27   27   -9    1    0    0</span></span>
-<span><span class="co">## [5,]   81 -108   54  -12    1    0</span></span>
-<span><span class="co">## [6,] -243  405 -270   90  -15    1</span></span></code></pre>
+<pre><code><span><span class="co">##      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">## [1,]    1    0    0    0</span></span>
+<span><span class="co">## [2,]   -3    1    0    0</span></span>
+<span><span class="co">## [3,]    9   -6    1    0</span></span>
+<span><span class="co">## [4,]  -27   27   -9    1</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Verify: mu'(k) = C_b %*% mu'(a)</span></span>
-<span><span class="va">mu_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>  <span class="co"># mu_0=1, mu_1=-1, mu_2=7, mu_3=39</span></span>
-<span><span class="co"># Use conv_moment_all to compute higher orders</span></span>
+<span><span class="va">mu_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span><span class="op">)</span>  <span class="co"># mu_0=1, mu_1=-1, mu_2=7, mu_3=39</span></span>
+<span><span class="va">mu_k_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">C_b</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">mu_a</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>  <span class="co"># remove mu_0</span></span>
+<span></span>
 <span><span class="va">moments_a2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span><span class="op">)</span></span>
 <span><span class="va">moments_k5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/conv_moment_all.html">conv_moment_all</a></span><span class="op">(</span><span class="va">moments_a2</span>, a <span class="op">=</span> <span class="fl">2</span>, k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="va">mu_a</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">moments_k5</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
-<span><span class="va">C_b</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">mu_a</span></span></code></pre></div>
-<pre><code><span><span class="co">##      [,1]</span></span>
-<span><span class="co">## [1,]   NA</span></span>
-<span><span class="co">## [2,]   NA</span></span>
-<span><span class="co">## [3,]   NA</span></span>
-<span><span class="co">## [4,]   NA</span></span>
-<span><span class="co">## [5,]   NA</span></span>
-<span><span class="co">## [6,]   NA</span></span></code></pre>
+<span></span>
+<span><span class="co"># Compare matrix multiplication result with conv_moment_all()</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">mu_k_matrix</span>, <span class="va">moments_k5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

@@ -57,27 +57,149 @@
 <div class="page-header"><h1 id="convmoment">convmoment<a class="anchor" aria-label="anchor" href="#convmoment"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- badges: end -->
-<p>The goal of convmoment is to convert moments of a distribution to and from central and raw ones. Raw moments about a origin can be converted to raw moments with another origin.</p>
+
+<p><strong>convmoment</strong> implements the generalized binomial framework for transforming statistical moments of any order across arbitrary origins (Mahmud, 2025). It provides a unified, exact, and computationally efficient <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;O%28r%5E2%29" title="O(r^2)" alt="O(r^2)"> method for:</p>
+<ul>
+<li>
+<strong>Raw-to-Raw</strong> transformations across arbitrary origins <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;a%20%5Cto%20k" title="a \to k" alt="a \to k">
+</li>
+<li>
+<strong>Raw-to-Central</strong> transformations (moments about origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;a" title="a" alt="a"> to central moments about the mean)</li>
+<li>
+<strong>Central-to-Raw</strong> transformations (central moments back to raw moments about <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;0" title="0" alt="0">)</li>
+<li>
+<strong>Direct Moment Computation</strong> from sample data up to degree <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;r" title="r" alt="r">
+</li>
+</ul>
+<p>The underlying mathematical identity uses the symbolic binomial operator:</p>
+<p>![ \mu’_r(k) \equiv (a + b)^r = \sum_{j=0}^r \binom{r}{j} \mu’_j(a) \, b^{r-j}](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%20%5Cmu%27_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%3D%20%5Csum_%7Bj%3D0%7D%5Er%20%5Cbinom%7Br%7D%7Bj%7D%20%5Cmu%27_j%28a%29%20%5C%2C%20b%5E%7Br-j%7D%20" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%20%5Cmu%27_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%3D%20%5Csum_%7Bj%3D0%7D%5Er%20%5Cbinom%7Br%7D%7Bj%7D%20%5Cmu%27_j%28a%29%20%5C%2C%20b%5E%7Br-j%7D%20</a> ” \mu’<em>r(k) \equiv (a + b)^r = \sum</em>{j=0}^r \binom{r}{j} \mu’_j(a) \, b^{r-j} “)</p>
+<p>where <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;b%20%3D%20a%20-%20k" title="b = a - k" alt="b = a - k"> is the origin-shift parameter and <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;a%5Ej%20%5Cmapsto%20%5Cmu%27_j%28a%29" title="a^j \mapsto \mu'_j(a)" alt="a^j \mapsto \mu’_j(a)">.</p>
+<hr>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of convmoment from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the released version of <strong>convmoment</strong> from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> (once accepted) with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"convmoment"</span><span class="op">)</span></span></code></pre></div>
+<p>Or install the development version from <a href="https://github.com/mahmudstat/convmoment" class="external-link">GitHub</a> using <code>pak</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"mahmudstat/convmoment"</span><span class="op">)</span></span></code></pre></div>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="key-functions">Key Functions<a class="anchor" aria-label="anchor" href="#key-functions"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
-<p>The moments of a variable around 2 are 1, 16, and -40. What would be the moments around 0?</p>
-<p>Thus, in the function, the old origin, <code>a = 2</code> and the new origin, <code>k = 0</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mahmudstat/convmoment" class="external-link">convmoment</a></span><span class="op">)</span></span>
+<table class="table">
+<colgroup>
+<col width="9%">
+<col width="90%">
+</colgroup>
+<thead><tr>
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left"><code>conv_moment_all(x, a, k)</code></td>
+<td align="left">Convert a vector of raw moments (orders <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;1%20%5Cdots%20K" title="1 \dots K" alt="1 \dots K">) from origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;a" title="a" alt="a"> to target origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;k" title="k" alt="k">
+</td>
+</tr>
+<tr>
+<td align="left"><code>raw2central(raw_moments, origin)</code></td>
+<td align="left">Convert raw moments about <code>origin</code> to central moments (about the mean)</td>
+</tr>
+<tr>
+<td align="left"><code>central2raw(central_moments, mean_val)</code></td>
+<td align="left">Convert central moments to raw moments about origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;0" title="0" alt="0">
+</td>
+</tr>
+<tr>
+<td align="left"><code>get_moments(x, a, r, na_rm, decimal)</code></td>
+<td align="left">Compute raw or central moments directly from sample data <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;x" title="x" alt="x"> up to degree <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;r" title="r" alt="r">
+</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<div class="section level3">
+<h3 id="id_1-raw-to-raw-transformation-across-origins">1. Raw-to-Raw Transformation Across Origins<a class="anchor" aria-label="anchor" href="#id_1-raw-to-raw-transformation-across-origins"></a>
+</h3>
+<p>Suppose the raw moments of a variable about origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;a%20%3D%202" title="a = 2" alt="a = 2"> are <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Cmu%27_1%282%29%20%3D%201" title="\mu'_1(2) = 1" alt="\mu’_1(2) = 1">, <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Cmu%27_2%282%29%20%3D%2016" title="\mu'_2(2) = 16" alt="\mu’_2(2) = 16">, and <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Cmu%27_3%282%29%20%3D%20-40" title="\mu'_3(2) = -40" alt="\mu’_3(2) = -40">. What are the raw moments about origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;k%20%3D%200" title="k = 0" alt="k = 0">?</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.thinkermahmud.com/convmoment/" class="external-link">convmoment</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Raw moments about origin a = 2</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">16</span>, <span class="op">-</span><span class="fl">40</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/conv_moment_all.html">conv_moment_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert to origin k = 0</span></span>
+<span><span class="fu"><a href="reference/conv_moment_all.html">conv_moment_all</a></span><span class="op">(</span><span class="va">x</span>, a <span class="op">=</span> <span class="fl">2</span>, k <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  3 24 76</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="id_2-raw-to-central-and-central-to-raw-conversions">2. Raw-to-Central and Central-to-Raw Conversions<a class="anchor" aria-label="anchor" href="#id_2-raw-to-central-and-central-to-raw-conversions"></a>
+</h3>
+<p>Convert raw moments about 0 to central moments (about the mean) and perform a round-trip check:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">200</span>, mean <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute raw moments about 0 (orders 1..5)</span></span>
+<span><span class="va">raw_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="kw">function</span><span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">^</span><span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert raw moments to central moments</span></span>
+<span><span class="va">central_m</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/raw2central.html">raw2central</a></span><span class="op">(</span><span class="va">raw_m</span>, origin <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">central_m</span></span>
+<span><span class="co">#&gt; [1]    0.000000    8.505605   -3.469533  224.557258 -305.155626</span></span>
+<span></span>
+<span><span class="co"># Round-trip back to raw moments</span></span>
+<span><span class="va">raw_reconstructed</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/central2raw.html">central2raw</a></span><span class="op">(</span><span class="va">central_m</span>, mean_val <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">raw_m</span>, <span class="va">raw_reconstructed</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="id_3-compute-moments-directly-from-sample-data">3. Compute Moments Directly from Sample Data<a class="anchor" aria-label="anchor" href="#id_3-compute-moments-directly-from-sample-data"></a>
+</h3>
+<p>Calculate raw moments around origin <img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;a%20%3D%202" title="a = 2" alt="a = 2"> up to 4th order:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">sample_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute moments about origin a = 2 up to order r = 4</span></span>
+<span><span class="fu"><a href="reference/get_moments.html">get_moments</a></span><span class="op">(</span><span class="va">sample_data</span>, a <span class="op">=</span> <span class="fl">2</span>, r <span class="op">=</span> <span class="fl">4</span>, decimal <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Order   Moment</span></span>
+<span><span class="co">#&gt; 1     1   3.1808</span></span>
+<span><span class="co">#&gt; 2     2  13.4172</span></span>
+<span><span class="co">#&gt; 3     3  64.0309</span></span>
+<span><span class="co">#&gt; 4     4 338.1910</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+<div class="section level2">
+<h2 id="documentation--vignette">Documentation &amp; Vignette<a class="anchor" aria-label="anchor" href="#documentation--vignette"></a>
+</h2>
+<p>For full theoretical details, high-order examples, distribution benchmarks (Binomial, Normal), and matrix formulations, visit the online documentation website:</p>
+<p>👉 <strong><a href="https://www.thinkermahmud.com/convmoment/" class="external-link uri">https://www.thinkermahmud.com/convmoment/</a></strong></p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use <code>convmoment</code> in your work, please cite:</p>
+<pre class="text"><code>Mahmud, A. A. (2025). A Generalized Binomial Framework for Moment Transformations
+Across Arbitrary Origins. R package version 0.2.3.</code></pre>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
+<p>This package is licensed under the <a href="LICENSE.html">MIT License</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -111,7 +233,13 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml" class="external-link"><img src="https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://www.thinkermahmud.com/convmoment/" class="external-link"><img src="https://img.shields.io/badge/docs-pkgdown-blue.svg" alt="Documentation"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
