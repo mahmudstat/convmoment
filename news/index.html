@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">convmoment</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,18 @@
       <small>Source: <a href="https://github.com/mahmudstat/convmoment/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="convmoment-100">convmoment 1.0.0<a class="anchor" aria-label="anchor" href="#convmoment-100"></a></h2>
+<ul><li>
+<strong>First stable release</strong> — API frozen, ready for production use</li>
+<li>Implements the generalized binomial framework for moment transformations (Mahmud, 2025)</li>
+<li>Core functions: <code><a href="../reference/conv_moment.html">conv_moment()</a></code>, <code><a href="../reference/conv_moment_all.html">conv_moment_all()</a></code>, <code><a href="../reference/raw2central.html">raw2central()</a></code>, <code><a href="../reference/central2raw.html">central2raw()</a></code>, <code><a href="../reference/get_moments.html">get_moments()</a></code>
+</li>
+<li>Unified symbolic operator: one formula for raw-to-raw, raw-to-central, central-to-raw</li>
+<li>Exact transformations (machine precision) via binomial identity</li>
+<li>Comprehensive test suite (11 tests) covering correctness, round-trips, edge cases</li>
+<li>Removed vignette; all usage documented in README</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.3" id="convmoment-023">convmoment 0.2.3<a class="anchor" aria-label="anchor" href="#convmoment-023"></a></h2>
 <ul><li>Initial CRAN submission version (0.2.3).</li>
