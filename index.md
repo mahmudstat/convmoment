@@ -86,9 +86,8 @@ get_moments(y, a = 2, r = 4, decimal = 4)
 
 ## Documentation
 
-Full vignette:
-[`vignette("convmoment")`](https://mahmudstat.github.io/convmoment/articles/convmoment.md)
-or [online](https://www.thinkermahmud.com/convmoment/)
+Full vignette: `vignette("convmoment")` or
+[online](https://www.thinkermahmud.com/convmoment/)
 
 Theory & validation: Mahmud (2025) — derivations, Binomial/Normal
 proofs, matrix form, benchmarks.

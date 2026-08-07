@@ -1,4 +1,4 @@
-# Convert a Single Moment Across Origins (Internal)
+# Convert a Single Moment Across Origins
 
 Computes the r-th moment about target origin `k` from raw moments about
 origin `a` using the generalized binomial transformation.
@@ -30,3 +30,11 @@ conv_moment(x, a, k, r)
 ## Value
 
 Numeric scalar: the r-th moment about origin `k`.
+
+## Examples
+
+``` r
+x <- c(-1, 7, 39)
+conv_moment(x, a = 2, k = 5, r = 2)  # returns 22
+#> [1] 22
+```

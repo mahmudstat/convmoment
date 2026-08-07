@@ -13,6 +13,8 @@ Normal).
 
 Useful links:
 
+- <https://www.thinkermahmud.com/convmoment/>
+
 - <https://github.com/mahmudstat/convmoment>
 
 - Report bugs at <https://github.com/mahmudstat/convmoment/issues>

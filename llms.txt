@@ -86,9 +86,8 @@ get_moments(y, a = 2, r = 4, decimal = 4)
 
 ## Documentation
 
-Full vignette:
-[`vignette("convmoment")`](https://mahmudstat.github.io/convmoment/articles/convmoment.md)
-or [online](https://www.thinkermahmud.com/convmoment/)
+Full vignette: `vignette("convmoment")` or
+[online](https://www.thinkermahmud.com/convmoment/)
 
 Theory & validation: Mahmud (2025) — derivations, Binomial/Normal
 proofs, matrix form, benchmarks.
@@ -105,6 +104,8 @@ MIT © Abdullah Al Mahmud
 
 - [`central2raw()`](https://mahmudstat.github.io/convmoment/reference/central2raw.md)
   : Convert Central Moments to Raw Moments About Zero
+- [`conv_moment()`](https://mahmudstat.github.io/convmoment/reference/conv_moment.md)
+  : Convert a Single Moment Across Origins
 - [`conv_moment_all()`](https://mahmudstat.github.io/convmoment/reference/conv_moment_all.md)
   : Convert All Moments Up to Order K Across Origins
 - [`get_moments()`](https://mahmudstat.github.io/convmoment/reference/get_moments.md)
@@ -112,9 +113,3 @@ MIT © Abdullah Al Mahmud
 - [`raw2central()`](https://mahmudstat.github.io/convmoment/reference/raw2central.md)
   : Convert Raw Moments to Central Moments
 
-# Articles
-
-### All vignettes
-
-- [UNKNOWN
-  TITLE](https://mahmudstat.github.io/convmoment/articles/convmoment.md):
