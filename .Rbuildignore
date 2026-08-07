@@ -5,6 +5,7 @@
 ^pkgdown$
 ^LICENSE\.md$
 ^README\.Rmd$
+^README\.html$
 ^\.github$
 ^convmoment\.Rcheck$
 ^.*\.tar\.gz$
