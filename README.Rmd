@@ -72,54 +72,47 @@ conv_moment(x, a = 2, k = 5, r = 2)  # 2nd moment about k = 5
 
 ### Raw-to-Central (raw2central)
 ```r
-set.seed(42)
-x <- rnorm(200, 10, 3)
-raw <- sapply(1:5, \(r) mean(x^r))
-central <- raw2central(raw, origin = 0)
+x <- c(-1, 7, 39)  # raw moments about a = 2
+mean_x <- -1 + 2  # mean = raw_moment_1 + origin = 1
+central <- raw2central(x, origin = 2)
 central
-#> [1]  0.000000  8.505605 -3.469533  224.557258 -305.155626
+#> [1]  0 22 -78
 ```
 
 ### Central-to-Raw (central2raw)
 ```r
-# Central moments about mean = 10
-central <- c(0, 9, 0, 120)
-raw_back <- central2raw(central, mean_val = 10)
+central <- c(0, 22, -78)  # central moments
+raw_back <- central2raw(central, mean_val = 1)
 raw_back
-#> [1]  10 109 1000 10120
+#> [1] -1  7 39
 ```
 
 ### Raw-to-Central (using conv_moment_all)
 ```r
-set.seed(42)
-x <- rnorm(200, 10, 3)
-raw <- sapply(1:5, \(r) mean(x^r))
-# Central moments: shift origin from 0 to mean(x)
-central <- conv_moment_all(raw, a = 0, k = mean(x))
+x <- c(-1, 7, 39)  # raw moments about a = 2
+mean_x <- -1 + 2  # = 1
+central <- conv_moment_all(x, a = 2, k = mean_x)
 central
-#> [1]  0.000000  8.505605 -3.469533  224.557258 -305.155626
-# Same as raw2central(raw, origin = 0)
+#> [1]  0 22 -78
+# Same as raw2central(x, origin = 2)
 ```
 
 ### Central-to-Raw (using conv_moment_all)
 ```r
-# Central moments about mean = 10 (first is always 0)
-central <- c(0, 9, 0, 120)
-# Raw moments about 0: shift origin from mean to 0
-raw_back <- conv_moment_all(central, a = 10, k = 0)
+central <- c(0, 22, -78)  # central moments
+raw_back <- conv_moment_all(central, a = 1, k = 2)
 raw_back
-#> [1]  10 109 1000 10120
-# Same as central2raw(central, mean_val = 10)
+#> [1] -1  7 39
+# Same as central2raw(central, mean_val = 1)
 ```
 
 ### Round-Trip (exact to machine precision)
 ```r
-set.seed(42)
-x <- rnorm(200, 10, 3)
-raw <- sapply(1:5, \(r) mean(x^r))
-central <- conv_moment_all(raw, a = 0, k = mean(x))
-raw_back <- conv_moment_all(central, a = mean(x), k = 0)
-all.equal(raw, raw_back)  # TRUE
+x <- c(-1, 7, 39)  # raw moments about a = 2
+mean_x <- -1 + 2  # = 1
+central <- conv_moment_all(x, a = 2, k = mean_x)
+raw_back <- conv_moment_all(central, a = mean_x, k = 2)
+all.equal(x, raw_back)  # TRUE
 ```
 
 ### From Data
