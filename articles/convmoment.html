@@ -70,6 +70,20 @@ Mahmud</h4>
     
     
 <div class="section level2">
+<h2 id="why-this-package">Why This Package?<a class="anchor" aria-label="anchor" href="#why-this-package"></a>
+</h2>
+<p><strong>Novelty</strong>: The <em>generalized binomial framework</em>
+(Mahmud, 2025) unifies all moment transformations — raw-to-raw,
+raw-to-central, central-to-raw — under a single symbolic operator:</p>
+<p><span class="math display">\[ \mu'_r(k) \equiv (a + b)^r \quad
+\text{with} \quad a^j \mapsto \mu'_j(a), \quad b = a - k
+\]</span></p>
+<p>Instead of memorizing separate formulas for each conversion,
+<strong>one rule handles everything</strong>. The transformation uses
+Pascal’s triangle coefficients, making it exact (machine precision) and
+extensible to arbitrary order without manual derivation.</p>
+</div>
+<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -81,9 +95,8 @@ Mahmud</h4>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.thinkermahmud.com/convmoment/" class="external-link">convmoment</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
+<h2 id="quick-reference">Quick Reference<a class="anchor" aria-label="anchor" href="#quick-reference"></a>
 </h2>
-<p>The package provides four main functions:</p>
 <table class="table">
 <colgroup>
 <col width="52%">
@@ -118,7 +131,6 @@ Mahmud</h4>
 <div class="section level2">
 <h2 id="example-1-raw-to-raw-transformation">Example 1: Raw-to-Raw Transformation<a class="anchor" aria-label="anchor" href="#example-1-raw-to-raw-transformation"></a>
 </h2>
-<p>Convert moments from one origin to another:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Raw moments about a = 2: mu'_1 = -1, mu'_2 = 7, mu'_3 = 39</span></span>
 <span><span class="va">moments_a2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span><span class="op">)</span></span>
@@ -170,22 +182,21 @@ Mahmud</h4>
 <span><span class="co">#&gt; 4     4 45.7821</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="key-points">Key Points<a class="anchor" aria-label="anchor" href="#key-points"></a>
+<h2 id="key-advantages">Key Advantages<a class="anchor" aria-label="anchor" href="#key-advantages"></a>
 </h2>
 <ul>
 <li>
-<strong>Transform pre-computed moments</strong> — no need to
-re-access raw data</li>
+<strong>One formula, all conversions</strong> — no separate rules
+for raw↔︎central</li>
 <li>
-<strong>Exact up to machine precision</strong> — uses binomial
-identity, not approximations</li>
+<strong>Exact precision</strong> — binomial identity, not numerical
+approximation</li>
 <li>
-<strong>Works for any order</strong> — scales to arbitrary high
-moments without manual formulas</li>
+<strong>Any order</strong> — scales to high moments without manual
+formulas</li>
 <li>
-<strong>Central moments via convenience wrappers</strong> —
-<code><a href="../reference/raw2central.html">raw2central()</a></code> and <code><a href="../reference/central2raw.html">central2raw()</a></code> handle the
-origin shift automatically</li>
+<strong>Data-free transformation</strong> — convert pre-computed
+moments in <code>O(r²)</code> vs <code>O(n·r)</code> recomputation</li>
 </ul>
 </div>
 <div class="section level2">
@@ -193,14 +204,12 @@ origin shift automatically</li>
 </h2>
 <ul>
 <li>
-<strong>Full theoretical details</strong>: See the accompanying
-paper (Mahmud, 2025)</li>
+<strong>Theory &amp; validation</strong>: See Mahmud (2025) for
+derivations, Binomial/Normal distribution proofs, and matrix
+formulation</li>
 <li>
-<strong>Theoretical distribution validation</strong>: Binomial,
-Normal moment formulas in the paper</li>
-<li>
-<strong>Performance benchmarks</strong>: Transformation is
-<code>O(r²)</code> vs <code>O(n·r)</code> for recomputation</li>
+<strong>Performance</strong>: Transformation is <code>O(r²)</code>
+vs <code>O(n·r)</code> for recomputation from raw data</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
