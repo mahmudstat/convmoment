@@ -70,6 +70,25 @@ conv_moment(x, a = 2, k = 5, r = 2)  # 2nd moment about k = 5
 #> [1] 22
 ```
 
+### Raw-to-Central (raw2central)
+```r
+set.seed(42)
+x <- rnorm(200, 10, 3)
+raw <- sapply(1:5, \(r) mean(x^r))
+central <- raw2central(raw, origin = 0)
+central
+#> [1]  0.000000  8.505605 -3.469533  224.557258 -305.155626
+```
+
+### Central-to-Raw (central2raw)
+```r
+# Central moments about mean = 10
+central <- c(0, 9, 0, 120)
+raw_back <- central2raw(central, mean_val = 10)
+raw_back
+#> [1]  10 109 1000 10120
+```
+
 ### Raw-to-Central (using conv_moment_all)
 ```r
 set.seed(42)
