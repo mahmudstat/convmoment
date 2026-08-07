@@ -1,7 +1,7 @@
 Package: convmoment
 Type: Package
 Title: Generalized Binomial Moment Transformations Across Arbitrary Origins
-Version: 0.2.3
+Version: 1.0.0
 Authors@R: person(given = c("Abdullah", "Al"),
                     family = "Mahmud",
                     role = c("aut", "cre"),
