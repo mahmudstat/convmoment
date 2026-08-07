@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 **convmoment** implements the *generalized binomial framework* for transforming statistical moments of any order across arbitrary origins. One unified rule replaces separate formulas for raw-to-raw, raw-to-central, and central-to-raw conversions.
 
-The method uses a symbolic binomial operator:
+The method uses a symbolic binomial operator: 
 
 $$ \mu'_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu'_j(a), \quad b = a - k $$
 
