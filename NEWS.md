@@ -1,7 +1,5 @@
 # convmoment 1.0.0
 
-* **First stable release** — API frozen, ready for production use
-* Implements the generalized binomial framework for moment transformations (Mahmud, 2025)
 * Core functions: `conv_moment()`, `conv_moment_all()`, `raw2central()`, `central2raw()`, `get_moments()`
 * Unified symbolic operator: one formula for raw-to-raw, raw-to-central, central-to-raw
 * Exact transformations (machine precision) via binomial identity

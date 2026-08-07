@@ -16,17 +16,13 @@ raw-to-central, and central-to-raw conversions.
 
 The method uses a symbolic binomial operator:
 
-  
-![ \\mu'\_r(k) \\equiv (a + b)^r \\quad \\text{with} \\quad a^j \\mapsto
-\\mu'\_j(a), \\quad b = a - k
-](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%20%5Cmu%27_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%5Cquad%20%5Ctext%7Bwith%7D%20%5Cquad%20a%5Ej%20%5Cmapsto%20%5Cmu%27_j%28a%29%2C%20%5Cquad%20b%20%3D%20a%20-%20k%20
-" \\mu'_r(k) \\equiv (a + b)^r \\quad \\text{with} \\quad a^j \\mapsto \\mu'_j(a), \\quad b = a - k ")  
+$$ \mu'_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu'_j(a), \quad b = a - k $$
 
 This makes transformations **exact** (machine precision), **extensible**
 to any order, and **data-free** — convert pre-computed moments in
 `O(r²)` instead of `O(n·r)`.
 
------
+------------------------------------------------------------------------
 
 ## Installation
 
@@ -38,19 +34,19 @@ You can install the development version of **convmoment** from
 pak::pak("mahmudstat/convmoment")
 ```
 
------
+------------------------------------------------------------------------
 
 ## Key Functions
 
-| Function                                 | Description                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------ |
-| `conv_moment(x, a, k, r)`                | Convert single moment of order `r` from origin `a` to `k`          |
-| `conv_moment_all(x, a, k)`               | Convert vector of raw moments (orders 1..K) from origin `a` to `k` |
-| `raw2central(raw_moments, origin)`       | Raw moments → central moments (about mean)                         |
-| `central2raw(central_moments, mean_val)` | Central moments → raw moments about 0                              |
-| `get_moments(x, a, r, na_rm, decimal)`   | Compute moments directly from sample data                          |
+| Function | Description |
+|----|----|
+| `conv_moment(x, a, k, r)` | Convert single moment of order `r` from origin `a` to `k` |
+| `conv_moment_all(x, a, k)` | Convert vector of raw moments (orders 1..K) from origin `a` to `k` |
+| `raw2central(raw_moments, origin)` | Raw moments → central moments (about mean) |
+| `central2raw(central_moments, mean_val)` | Central moments → raw moments about 0 |
+| `get_moments(x, a, r, na_rm, decimal)` | Compute moments directly from sample data |
 
------
+------------------------------------------------------------------------
 
 ## Quick Examples
 
@@ -63,7 +59,7 @@ conv_moment_all(x, a = 2, k = 5)
 #> [1]  -4  22 -78
 ```
 
-### Single Moment (conv\_moment)
+### Single Moment (conv_moment)
 
 ``` r
 x <- c(-1, 7, 39)  # raw moments about a = 2
@@ -90,7 +86,7 @@ raw_back
 #> [1] -1  7 39
 ```
 
-### Raw-to-Central (using conv\_moment\_all)
+### Raw-to-Central (using conv_moment_all)
 
 ``` r
 x <- c(-1, 7, 39)  # raw moments about a = 2
@@ -101,7 +97,7 @@ central
 # Same as raw2central(x, origin = 2)
 ```
 
-### Central-to-Raw (using conv\_moment\_all)
+### Central-to-Raw (using conv_moment_all)
 
 ``` r
 central <- c(0, 22, -78)  # central moments
@@ -134,7 +130,7 @@ get_moments(y, a = 2, r = 4, decimal = 4)
 #> 4     4 338.1910
 ```
 
------
+------------------------------------------------------------------------
 
 ## License
 
