@@ -9,13 +9,21 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Generalized Binomial Moment Transformations}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VigneetteEncoding{UTF-8}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(convmoment)
 ```
+
+## Why This Package?
+
+**Novelty**: The *generalized binomial framework* (Mahmud, 2025) unifies all moment transformations — raw-to-raw, raw-to-central, central-to-raw — under a single symbolic operator:
+
+$$ \mu'_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu'_j(a), \quad b = a - k $$
+
+Instead of memorizing separate formulas for each conversion, **one rule handles everything**. The transformation uses Pascal's triangle coefficients, making it exact (machine precision) and extensible to arbitrary order without manual derivation.
 
 ## Installation
 
@@ -28,9 +36,7 @@ install.packages("convmoment")
 library(convmoment)
 ```
 
-## Quick Start
-
-The package provides four main functions:
+## Quick Reference
 
 | Function | Purpose |
 |----------|---------|
@@ -40,8 +46,6 @@ The package provides four main functions:
 | `get_moments(x, a, r, na_rm = FALSE, decimal = 3)` | Compute moments directly from sample data |
 
 ## Example 1: Raw-to-Raw Transformation
-
-Convert moments from one origin to another:
 
 ```r
 # Raw moments about a = 2: mu'_1 = -1, mu'_2 = 7, mu'_3 = 39
@@ -94,15 +98,14 @@ get_moments(sample_data, a = mean(sample_data), r = 4, decimal = 4)
 #> 4     4 45.7821
 ```
 
-## Key Points
+## Key Advantages
 
-- **Transform pre-computed moments** — no need to re-access raw data
-- **Exact up to machine precision** — uses binomial identity, not approximations
-- **Works for any order** — scales to arbitrary high moments without manual formulas
-- **Central moments via convenience wrappers** — `raw2central()` and `central2raw()` handle the origin shift automatically
+- **One formula, all conversions** — no separate rules for raw↔central
+- **Exact precision** — binomial identity, not numerical approximation
+- **Any order** — scales to high moments without manual formulas
+- **Data-free transformation** — convert pre-computed moments in `O(r²)` vs `O(n·r)` recomputation
 
 ## Further Reading
 
-- **Full theoretical details**: See the accompanying paper (Mahmud, 2025)
-- **Theoretical distribution validation**: Binomial, Normal moment formulas in the paper
-- **Performance benchmarks**: Transformation is `O(r²)` vs `O(n·r)` for recomputation
+- **Theory & validation**: See Mahmud (2025) for derivations, Binomial/Normal distribution proofs, and matrix formulation
+- **Performance**: Transformation is `O(r²)` vs `O(n·r)` for recomputation from raw data
