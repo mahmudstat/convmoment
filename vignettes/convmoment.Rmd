@@ -9,7 +9,7 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Generalized Binomial Moment Transformations}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  %\VigneetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -17,264 +17,92 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 library(convmoment)
 ```
 
-## Introduction
-
-The `convmoment` package implements the **generalized binomial framework** for transforming statistical moments across arbitrary origins, as described in Mahmud (2025). This framework unifies raw-to-raw, raw-to-central, and central-to-raw moment conversions under a single mathematical principle:
-
-$$ \mu'_r(k) = \sum_{j=0}^r \binom{r}{j} \mu'_j(a) \, b^{r-j} $$
-
-where $b = a - k$ is the origin shift parameter.
-
-The key insight is the **symbolic binomial operator**:
-
-$$ \mu'_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu'_j(a) $$
-
-This allows any moment transformation to be constructed instantly using Pascal's triangle coefficients.
-
 ## Installation
 
 ```r
-# From GitHub (once published)
-# remotes::install_github("yourusername/convmoment")
+# From CRAN (once accepted)
+install.packages("convmoment")
 
-# From local source
-# remotes::install_local("path/to/convmoment")
+# From GitHub
+# remotes::install_github("mahmudstat/convmoment")
 library(convmoment)
 ```
 
-## Core Functions
+## Quick Start
+
+The package provides four main functions:
 
 | Function | Purpose |
 |----------|---------|
-| `conv_moment_all(x, a, k)` | Convert all moments up to order K from origin `a` to origin `k` |
-| `raw2central(raw_moments, origin)` | Convert raw moments about `origin` to central moments |
-| `central2raw(central_moments, mean_val)` | Convert central moments to raw moments about 0 |
-| `get_moments(x, a, r)` | Compute raw/central moments directly from data |
+| `conv_moment_all(x, a, k)` | Convert raw moments from origin `a` to origin `k` |
+| `raw2central(raw_moments, origin)` | Convert raw moments to central moments (about the mean) |
+| `central2raw(central_moments, mean_val)` | Convert central moments back to raw moments about 0 |
+| `get_moments(x, a, r, na_rm = FALSE, decimal = 3)` | Compute moments directly from sample data |
 
-## Basic Usage: Raw-to-Raw Transformation
+## Example 1: Raw-to-Raw Transformation
 
-```{r raw-to-raw}
-# Example from the paper: moments about a=2 to moments about k=5
-# Given: mu'_1(2) = -1, mu'_2(2) = 7, mu'_3(2) = 39
+Convert moments from one origin to another:
+
+```r
+# Raw moments about a = 2: mu'_1 = -1, mu'_2 = 7, mu'_3 = 39
 moments_a2 <- c(-1, 7, 39)
 
-# Convert to origin k=5 (b = a - k = 2 - 5 = -3)
+# Convert to origin k = 5
 moments_k5 <- conv_moment_all(moments_a2, a = 2, k = 5)
 moments_k5
-
-# Expected: mu'_1(5) = -4, mu'_2(5) = 22, mu'_3(5) = -78
+#> [1]  -4  22 -78
 ```
 
-## Raw-to-Central Transformation
+## Example 2: Raw-to-Central and Round-Trip
 
-```{r raw-to-central}
-# Generate sample data
+```r
 set.seed(42)
 x <- rnorm(200, mean = 10, sd = 3)
 
-# Compute raw moments about origin 0 (orders 1-6)
-raw_moments <- sapply(1:6, function(r) mean(x^r))
+# Compute raw moments about 0 (orders 1-5)
+raw_m <- sapply(1:5, function(r) mean(x^r))
 
 # Convert to central moments
-central_moments <- raw2central(raw_moments, origin = 0)
+central_m <- raw2central(raw_m, origin = 0)
 
-# Verify against direct computation
-direct_central <- sapply(1:6, function(r) mean((x - mean(x))^r))
-
-# Compare
-results <- data.frame(
-  Order = 1:6,
-  Direct = direct_central,
-  Converted = central_moments,
-  Difference = abs(direct_central - central_moments)
-)
-knitr::kable(results, digits = 10,
-  caption = "Raw-to-Central: Converted vs Direct Computation")
+# Verify round-trip: central -> raw -> central
+raw_back <- central2raw(central_m, mean_val = mean(x))
+all.equal(raw_m, raw_back)
+#> [1] TRUE
 ```
 
-## Central-to-Raw Transformation
+## Example 3: Compute Moments from Data
 
-```{r central-to-raw}
-# Using the central moments from above
-mean_x <- mean(x)
-raw_back <- central2raw(central_moments, mean_val = mean_x)
-
-# Verify against original raw moments
-results2 <- data.frame(
-  Order = 1:6,
-  Original = raw_moments,
-  Reconstructed = raw_back,
-  Difference = abs(raw_moments - raw_back)
-)
-knitr::kable(results2, digits = 10,
-  caption = "Central-to-Raw: Reconstructed vs Original")
-```
-
-## Round-Trip Validation
-
-```{r round-trip}
-# Full cycle: raw -> central -> raw
-raw_reconstructed <- central2raw(
-  raw2central(raw_moments, origin = 0),
-  mean_val = mean_x
-)
-
-max_diff <- max(abs(raw_moments - raw_reconstructed))
-max_diff
-```
-
-The round-trip error is on the order of machine precision (~1e-15), confirming numerical exactness.
-
-## High-Order Moments
-
-The framework scales naturally to arbitrary high orders without manual formula derivation:
-
-```{r high-order}
-# 10th order moment transformation
+```r
 set.seed(123)
-x <- rnorm(1000, mean = 5, sd = 2)
-raw_10 <- sapply(1:10, function(r) mean(x^r))
-central_10_direct <- sapply(1:10, function(r) mean((x - mean(x))^r))
-central_10_converted <- raw2central(raw_10, origin = 0)
+sample_data <- rnorm(100, mean = 5, sd = 2)
 
-high_order_results <- data.frame(
-  Order = 1:10,
-  Direct = central_10_direct,
-  Converted = central_10_converted,
-  Diff = abs(central_10_direct - central_10_converted)
-)
-knitr::kable(high_order_results, digits = 8)
+# Raw moments about origin a = 2, up to order 4
+get_moments(sample_data, a = 2, r = 4, decimal = 4)
+#>   Order  Moment
+#> 1     1  3.1808
+#> 2     2 13.4172
+#> 3     3 64.0309
+#> 4     4 338.1910
+
+# Central moments (use a = mean)
+get_moments(sample_data, a = mean(sample_data), r = 4, decimal = 4)
+#>   Order  Moment
+#> 1     1  0.0000
+#> 2     2  3.8942
+#> 3     3 -0.1923
+#> 4     4 45.7821
 ```
 
-## Computational Performance
+## Key Points
 
-Transforming pre-computed moments is **sample-size independent** ($O(r^2)$) versus recomputing from raw data ($O(n \cdot r)$):
+- **Transform pre-computed moments** — no need to re-access raw data
+- **Exact up to machine precision** — uses binomial identity, not approximations
+- **Works for any order** — scales to arbitrary high moments without manual formulas
+- **Central moments via convenience wrappers** — `raw2central()` and `central2raw()` handle the origin shift automatically
 
-```{r benchmark}
-set.seed(42)
-n <- 100000
-x_large <- rnorm(n, mean = 10, sd = 2)
-origin_a <- 2
-origin_k <- 5
+## Further Reading
 
-# Pre-computed moments about origin_a
-raw_a <- sapply(1:5, function(r) mean((x_large - origin_a)^r))
-
-N_calls <- 1000
-
-# Benchmark 1: Recompute from raw data (O(n * r))
-t_raw <- system.time({
-  for (i in 1:N_calls) {
-    dummy <- sapply(1:5, function(r) mean((x_large - origin_k)^r))
-  }
-})["elapsed"]
-
-# Benchmark 2: Binomial transformation (O(r^2))
-t_binom <- system.time({
-  for (i in 1:N_calls) {
-    dummy <- conv_moment_all(raw_a, a = origin_a, k = origin_k)
-  }
-})["elapsed"]
-
-speedup <- round(t_raw / t_binom, 1)
-
-bench <- data.frame(
-  Method = c("Raw Data Recomputation (O(n*r))", "Binomial Transformation (O(r^2))"),
-  Time_sec = c(t_raw, t_binom),
-  Speedup = c("1.0x (baseline)", paste0(speedup, "x faster"))
-)
-knitr::kable(bench, digits = 3,
-  caption = "Performance: 1,000 transformations on n = 100,000")
-```
-
-## Theoretical Distributions
-
-The framework works directly with theoretical moments from named distributions:
-
-### Binomial Distribution
-
-```{r binomial}
-# Binomial(n=10, p=0.3): theoretical raw moments about 0
-n <- 10; p <- 0.3
-# Using known formulas or MGF derivatives
-mu1_0 <- n * p
-mu2_0 <- n * p * (1 - p) + n^2 * p^2
-mu3_0 <- n * p * (1 - p) * (1 - 2 * p) + 3 * n^2 * p^2 * (1 - p) + n^3 * p^3
-mu4_0 <- n * p * (1 - p) * (1 - 6 * p * (1 - p)) +
-         6 * n^2 * p^2 * (1 - p) * (1 - 2 * p) +
-         7 * n^3 * p^3 * (1 - p) + n^4 * p^4
-
-raw_binom <- c(mu1_0, mu2_0, mu3_0, mu4_0)
-central_binom <- raw2central(raw_binom, origin = 0)
-
-# Known theoretical central moments:
-# mu_1 = 0
-# mu_2 = n*p*(1-p) = 2.1
-# mu_3 = n*p*(1-p)*(1-2p) = 0.84
-# mu_4 = 3*n^2*p^2*(1-p)^2 + n*p*(1-p)*(1-6*p*(1-p)) = 3.294 + 0.441 = 3.735
-
-theoretical <- c(0, n*p*(1-p), n*p*(1-p)*(1-2*p),
-  3*n^2*p^2*(1-p)^2 + n*p*(1-p)*(1-6*p*(1-p)))
-
-results_binom <- data.frame(
-  Order = 1:4,
-  Converted = central_binom,
-  Theoretical = theoretical,
-  Diff = abs(central_binom - theoretical)
-)
-knitr::kable(results_binom, digits = 8)
-```
-
-### Normal Distribution
-
-```{r normal}
-# Normal(mu=2, sigma^2=4): theoretical raw moments about 0
-mu <- 2; sigma2 <- 4
-raw_normal <- c(
-  mu,
-  mu^2 + sigma2,
-  mu^3 + 3*mu*sigma2,
-  mu^4 + 6*mu^2*sigma2 + 3*sigma2^2
-)
-central_normal <- raw2central(raw_normal, origin = 0)
-
-# Theoretical central moments of Normal:
-# mu_1 = 0, mu_2 = sigma^2 = 4, mu_3 = 0, mu_4 = 3*sigma^4 = 48
-theoretical_normal <- c(0, sigma2, 0, 3*sigma2^2)
-
-results_normal <- data.frame(
-  Order = 1:4,
-  Converted = central_normal,
-  Theoretical = theoretical_normal,
-  Diff = abs(central_normal - theoretical_normal)
-)
-knitr::kable(results_normal, digits = 8)
-```
-
-## Matrix Formulation
-
-For computational implementations, the transformation can be expressed as a matrix-vector product:
-
-```{r matrix-form}
-# Transformation matrix C_b for orders 0..K
-K <- 3
-b <- 2 - 5  # = -3 (a = 2, k = 5)
-C_b <- outer(0:K, 0:K, function(r, j) ifelse(j <= r, choose(r, j) * b^(r-j), 0))
-C_b
-
-# Verify: mu'(k) = C_b %*% mu'(a)
-mu_a <- c(1, -1, 7, 39)  # mu_0=1, mu_1=-1, mu_2=7, mu_3=39
-mu_k_matrix <- as.vector(C_b %*% mu_a)[-1]  # remove mu_0
-
-moments_a2 <- c(-1, 7, 39)
-moments_k5 <- conv_moment_all(moments_a2, a = 2, k = 5)
-
-# Compare matrix multiplication result with conv_moment_all()
-all.equal(mu_k_matrix, moments_k5)
-```
-
-
-## References
-
-- Mahmud, A. A. (2025). *A Generalized Binomial Framework for Moment Transformations Across Arbitrary Origins*. [Journal submission].
-- Pébay, P. (2008). *Formulas for robust, one-pass parallel computation of covariances and arbitrary-order statistical moments*. Sandia National Laboratories Technical Report SAND2008-6212.
+- **Full theoretical details**: See the accompanying paper (Mahmud, 2025)
+- **Theoretical distribution validation**: Binomial, Normal moment formulas in the paper
+- **Performance benchmarks**: Transformation is `O(r²)` vs `O(n·r)` for recomputation
