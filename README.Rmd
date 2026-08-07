@@ -1,5 +1,5 @@
 ---
-output: rmarkdown::html_vignette
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -132,3 +132,4 @@ get_moments(y, a = 2, r = 4, decimal = 4)
 ## License
 
 MIT © Abdullah Al Mahmud
+
