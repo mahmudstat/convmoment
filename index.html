@@ -59,7 +59,7 @@
 
 <p><strong>convmoment</strong> implements the <em>generalized binomial framework</em> for transforming statistical moments of any order across arbitrary origins. One unified rule replaces separate formulas for raw-to-raw, raw-to-central, and central-to-raw conversions.</p>
 <p>The method uses a symbolic binomial operator:</p>
-<p>![ \mu’_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu’_j(a), \quad b = a - k](<a href="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%20%5Cmu%27_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%5Cquad%20%5Ctext%7Bwith%7D%20%5Cquad%20a%5Ej%20%5Cmapsto%20%5Cmu%27_j%28a%29%2C%20%5Cquad%20b%20%3D%20a%20-%20k%20" class="external-link uri">https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%20%5Cmu%27_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%5Cquad%20%5Ctext%7Bwith%7D%20%5Cquad%20a%5Ej%20%5Cmapsto%20%5Cmu%27_j%28a%29%2C%20%5Cquad%20b%20%3D%20a%20-%20k%20</a> ” \mu’_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu’_j(a), \quad b = a - k “)</p>
+<p><span class="math display">\[ \mu'_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu'_j(a), \quad b = a - k \]</span></p>
 <p>This makes transformations <strong>exact</strong> (machine precision), <strong>extensible</strong> to any order, and <strong>data-free</strong> — convert pre-computed moments in <code>O(r²)</code> instead of <code>O(n·r)</code>.</p>
 <hr>
 <div class="section level2">
@@ -76,8 +76,8 @@
 </h2>
 <table class="table">
 <colgroup>
-<col width="37%">
-<col width="62%">
+<col width="50%">
+<col width="50%">
 </colgroup>
 <thead><tr>
 <th>Function</th>
