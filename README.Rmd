@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://www.thinkermahmud.com/convmoment/)
 <!-- badges: end -->
 
-**convmoment** implements the *generalized binomial framework* (Mahmud, 2025) for transforming statistical moments of any order across arbitrary origins. One unified rule replaces separate formulas for raw-to-raw, raw-to-central, and central-to-raw conversions.
+**convmoment** implements the *generalized binomial framework* for transforming statistical moments of any order across arbitrary origins. One unified rule replaces separate formulas for raw-to-raw, raw-to-central, and central-to-raw conversions.
 
 The method uses a symbolic binomial operator:
 
@@ -32,13 +32,11 @@ This makes transformations **exact** (machine precision), **extensible** to any 
 
 ## Installation
 
-```r
-# From CRAN (once accepted)
-install.packages("convmoment")
+You can install the development version of **convmoment** from [GitHub](https://github.com/) with:
 
-# From GitHub
-# remotes::install_github("mahmudstat/convmoment")
-library(convmoment)
+``` r
+# install.packages("pak")
+pak::pak("mahmudstat/convmoment")
 ```
 
 ---
@@ -64,13 +62,43 @@ conv_moment_all(x, a = 2, k = 5)
 #> [1]  -4  22 -78
 ```
 
-### Raw ↔ Central (round-trip exact)
+### Single Moment (conv_moment)
+```r
+x <- c(-1, 7, 39)  # raw moments about a = 2
+conv_moment(x, a = 2, k = 5, r = 2)  # 2nd moment about k = 5
+#> [1] 22
+```
+
+### Raw-to-Central (using conv_moment_all)
 ```r
 set.seed(42)
 x <- rnorm(200, 10, 3)
 raw <- sapply(1:5, \(r) mean(x^r))
-central <- raw2central(raw, origin = 0)
-raw_back <- central2raw(central, mean_val = mean(x))
+# Central moments: shift origin from 0 to mean(x)
+central <- conv_moment_all(raw, a = 0, k = mean(x))
+central
+#> [1]  0.000000  8.505605 -3.469533  224.557258 -305.155626
+# Same as raw2central(raw, origin = 0)
+```
+
+### Central-to-Raw (using conv_moment_all)
+```r
+# Central moments about mean = 10 (first is always 0)
+central <- c(0, 9, 0, 120)
+# Raw moments about 0: shift origin from mean to 0
+raw_back <- conv_moment_all(central, a = 10, k = 0)
+raw_back
+#> [1]  10 109 1000 10120
+# Same as central2raw(central, mean_val = 10)
+```
+
+### Round-Trip (exact to machine precision)
+```r
+set.seed(42)
+x <- rnorm(200, 10, 3)
+raw <- sapply(1:5, \(r) mean(x^r))
+central <- conv_moment_all(raw, a = 0, k = mean(x))
+raw_back <- conv_moment_all(central, a = mean(x), k = 0)
 all.equal(raw, raw_back)  # TRUE
 ```
 
@@ -85,14 +113,6 @@ get_moments(y, a = 2, r = 4, decimal = 4)
 #> 3     3 64.0309
 #> 4     4 338.1910
 ```
-
----
-
-## Documentation
-
-Full vignette: `vignette("convmoment")` or [online](https://www.thinkermahmud.com/convmoment/)
-
-Theory & validation: Mahmud (2025) — derivations, Binomial/Normal proofs, matrix form, benchmarks.
 
 ---
 
