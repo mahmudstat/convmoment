@@ -45,7 +45,8 @@ pak::pak("mahmudstat/convmoment")
 
 | Function | Description |
 |----------|-------------|
-| `conv_moment_all(x, a, k)` | Convert raw moments from origin `a` to `k` |
+| `conv_moment(x, a, k, r)` | Convert single moment of order `r` from origin `a` to `k` |
+| `conv_moment_all(x, a, k)` | Convert vector of raw moments (orders 1..K) from origin `a` to `k` |
 | `raw2central(raw_moments, origin)` | Raw moments → central moments (about mean) |
 | `central2raw(central_moments, mean_val)` | Central moments → raw moments about 0 |
 | `get_moments(x, a, r, na_rm, decimal)` | Compute moments directly from sample data |
