@@ -7,12 +7,8 @@ raw-to-central, and central-to-raw conversions.
 
 The method uses a symbolic binomial operator:
 
-![\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto
-\mu^\prime_j(a), \quad b = a -
-k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmu%5E%5Cprime_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%5Cquad%20%5Ctext%7Bwith%7D%20%5Cquad%20a%5Ej%20%5Cmapsto%20%5Cmu%5E%5Cprime_j%28a%29%2C%20%5Cquad%20b%20%3D%20a%20-%20k "\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu^\prime_j(a), \quad b = a - k")
-
-\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto
-\mu^\prime_j(a), \quad b = a - k
+\\\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto
+\mu^\prime_j(a), \quad b = a - k\\
 
 This makes transformations **exact** (machine precision), **extensible**
 to any order, and **data-free** — convert pre-computed moments in
