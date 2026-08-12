@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/mahmudstat/convmoment/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/mahmudstat/convmoment/blob/v1.0.1/DESCRIPTION)
 
 Mahmud AA (2026). *convmoment: Generalized Binomial Moment
 Transformations Across Arbitrary Origins*. R package version 1.0.0,
