@@ -59,7 +59,9 @@
 
 <p><strong>convmoment</strong> implements the <em>generalized binomial framework</em> for transforming statistical moments of any order across arbitrary origins. One unified rule replaces separate formulas for raw-to-raw, raw-to-central, and central-to-raw conversions.</p>
 <p>The method uses a symbolic binomial operator:</p>
-<p><span class="math display">\[\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu^\prime_j(a), \quad b = a - k\]</span></p>
+<div class="float">
+<img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Cmu%5E%5Cprime_r%28k%29%20%5Cequiv%20%28a%20%2B%20b%29%5Er%20%5Cquad%20%5Ctext%7Bwith%7D%20%5Cquad%20a%5Ej%20%5Cmapsto%20%5Cmu%5E%5Cprime_j%28a%29%2C%20%5Cquad%20b%20%3D%20a%20-%20k" title="\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu^\prime_j(a), \quad b = a - k" alt="\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu^\prime_j(a), \quad b = a - k"><div class="figcaption">\mu^\prime_r(k) \equiv (a + b)^r \quad \text{with} \quad a^j \mapsto \mu^\prime_j(a), \quad b = a - k</div>
+</div>
 <p>This makes transformations <strong>exact</strong> (machine precision), <strong>extensible</strong> to any order, and <strong>data-free</strong> — convert pre-computed moments in <code>O(r²)</code> instead of <code>O(n·r)</code>.</p>
 <hr>
 <div class="section level2">
@@ -76,8 +78,8 @@
 </h2>
 <table class="table">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col width="37%">
+<col width="62%">
 </colgroup>
 <thead><tr>
 <th>Function</th>
@@ -237,6 +239,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml" class="external-link"><img src="https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.thinkermahmud.com/convmoment/" class="external-link"><img src="https://img.shields.io/badge/docs-pkgdown-blue.svg" alt="Documentation"></a></li>
+<li><a href="https://doi.org/10.5281/zenodo.21908038" class="external-link"><img src="https://zenodo.org/badge/857775820.svg" alt="DOI"></a></li>
 </ul>
 </div>
 
