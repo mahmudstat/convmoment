@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml)
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://www.thinkermahmud.com/convmoment/)
+[![DOI](https://zenodo.org/badge/857775820.svg)](https://doi.org/10.5281/zenodo.21908038)
 <!-- badges: end -->
 
 **convmoment** implements the *generalized binomial framework* for transforming statistical moments of any order across arbitrary origins. One unified rule replaces separate formulas for raw-to-raw, raw-to-central, and central-to-raw conversions.
