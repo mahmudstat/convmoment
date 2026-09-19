@@ -7,7 +7,7 @@
 
 [![R-CMD-check](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/mahmudstat/convmoment/actions/workflows/pkgdown.yml)
 [![Documentation](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://www.thinkermahmud.com/convmoment/)
-[![DOI](https://zenodo.org/badge/857775820.svg)](https://doi.org/10.5281/zenodo.21908038)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21908038-blue.svg)](https://doi.org/10.5281/zenodo.21908038)
 <!-- badges: end -->
 
 **convmoment** implements the *generalized binomial framework* for
